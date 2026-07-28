@@ -1,5 +1,5 @@
 ## Hi there 👋
-If you wish to join the OCCheetahs then check out this website link! here, you can sign up! and read about the OCCheetahs!
+We are forming a 12u Travel baseball team.
 <!--
 **OCCheetahs/OCCheetahs** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
