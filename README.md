@@ -1,5 +1,5 @@
 ## Hi there 👋
-We are forming a 12u Travel baseball team.
+We are forming a 12u Travel baseball team. If you want to join the team, then check out this link down below.
 <!--
 **OCCheetahs/OCCheetahs** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
