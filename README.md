@@ -1,5 +1,5 @@
 ## Hi there 👋
-
+If you want to join the OCCheetahs then check out this website link!
 <!--
 **OCCheetahs/OCCheetahs** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
