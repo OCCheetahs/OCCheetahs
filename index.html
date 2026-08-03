@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OC Cheetahs Baseball</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --cheetah-gold: #f4b321;
+      --cheetah-orange: #ff7a00;
+      --cheetah-black: #000000;
+      --cheetah-white: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #050505;
+      color: var(--cheetah-white);
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,122,0,0.15), transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(244,179,33,0.12), transparent 60%);
+      animation: bgPulse 8s infinite alternate;
+      z-index: -1;
+    }
+
+    @keyframes bgPulse {
+      0% { opacity: 0.4; transform: scale(1); }
+      100% { opacity: 0.8; transform: scale(1.3); }
+    }
+
+    header {
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(12px);
+      border-bottom: 3px solid var(--cheetah-orange);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 2px solid var(--cheetah-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 20px;
+      color: var(--cheetah-gold);
+    }
+
+    .site-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+    }
+
+    nav a {
+      color: var(--cheetah-white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+    }
+
+    nav a:hover {
+      border-bottom-color: var(--cheetah-orange);
+      color: var(--cheetah-gold);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .hero-text h1 {
+      font-size: 34px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: titlePop 1.2s ease forwards;
+    }
+
+    @keyframes titlePop {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-text h1 span {
+      color: var(--cheetah-gold);
+    }
+
+    .hero-tagline {
+      font-size: 16px;
+      color: #cccccc;
+      margin-bottom: 18px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(244,179,33,0.1);
+      border: 1px solid var(--cheetah-gold);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 18px;
+    }
+
+    .cheetah-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--cheetah-orange);
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--cheetah-black);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 14px;
+      transition: 0.25s;
+      text-align: center;
+    }
+
+    .cheetah-btn:hover {
+      background: var(--cheetah-gold);
+      color: var(--cheetah-black);
+    }
+
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+      padding: 12px;
+      background: #ffffff;
+      color: #000000;
+      border: 2px solid var(--cheetah-gold);
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .google-btn:hover {
+      background: #f1f1f1;
+      box-shadow: 0 0 15px rgba(244,179,33,0.4);
+      transform: translateY(-2px);
+    }
+
+    .hero-logo-box {
+      border-radius: 18px;
+      border: 2px solid #222;
+      background: radial-gradient(circle at top left, #333 0, #000 45%);
+      padding: 30px;
+      text-align: center;
+      transition: 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-logo-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 25px rgba(255,122,0,0.35);
+    }
+
+    /* PREMIUM HERO CIRCLE REPLACEMENT LOGO */
+    .hero-logo-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--cheetah-gold);
+      background: radial-gradient(circle, #111 0%, #000 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 52px;
+      color: var(--cheetah-gold);
+      box-shadow: 0 0 20px rgba(244,179,33,0.3);
+      text-shadow: 0 0 10px rgba(244,179,33,0.5);
+    }
+
+    section {
+      margin-bottom: 40px;
+      border: 1px solid #222;
+      background: #0b0b0b;
+      border-radius: 14px;
+      padding: 30px;
+      box-shadow: 0 0 25px rgba(255,122,0,0.25);
+      transition: 0.3s ease;
+    }
+
+    section:hover {
+      box-shadow: 0 0 40px rgba(255,122,0,0.45);
+      transform: translateY(-3px);
+    }
+
+    section h2 {
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 12px;
+      color: var(--cheetah-gold);
+      text-align: center;
+    }
+
+    .section-sub {
+      font-size: 13px;
+      color: #bbbbbb;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border-radius: 12px;
+      border: 1px solid #222;
+      background: #0b0b0b;
+      padding: 14px 14px 16px;
+      transition: 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 18px rgba(244,179,33,0.35);
+    }
+
+    .card h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+      color: var(--cheetah-gold);
+    }
+
+    .card p {
+      font-size: 13px;
+      color: #cccccc;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 18px;
+    }
+
+    footer {
+      border-top: 1px solid #222;
+      padding: 16px;
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+      background: #050505;
+    }
+
+    .portal-box {
+      margin-top: 20px;
+      padding: 40px 30px;
+      background: #0b0b0b;
+      border-radius: 14px;
+      border: 1px solid #222;
+      box-shadow: 0 0 25px rgba(255,122,0,0.25);
+    }
+
+    /* COACH REGISTRATION DASHBOARD STYLES */
+    .admin-dashboard {
+      text-align: left;
+      background: #111111;
+      border-radius: 8px;
+      padding: 20px;
+      border: 1px solid var(--cheetah-gold);
+    }
+
+    .admin-header-row {
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--cheetah-orange);
+      padding-bottom: 8px;
+    }
+
+    .admin-title {
+      font-size: 18px;
+      color: var(--cheetah-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .reg-list {
+      max-height: 450px;
+      overflow-y: auto;
+      padding-right: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .reg-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    .reg-list::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+    .reg-list::-webkit-scrollbar-thumb {
+      background: var(--cheetah-orange);
+      border-radius: 3px;
+    }
+
+    .reg-card {
+      background: #050505;
+      border-radius: 8px;
+      padding: 14px;
+      border: 1px solid #2a2a2a;
+    }
+
+    .reg-card-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .reg-card-header h4 {
+      color: var(--cheetah-orange);
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .reg-card-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      font-size: 12px;
+    }
+
+    .detail-group p {
+      margin-bottom: 4px;
+      color: #bbbbbb;
+    }
+
+    .detail-group p strong {
+      color: var(--cheetah-white);
+    }
+
+    .detail-heading {
+      color: var(--cheetah-gold);
+      font-weight: 700;
+      margin-bottom: 6px !important;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .reg-card-footer {
+      margin-top: 10px;
+      padding-top: 6px;
+      border-top: 1px solid #1a1a1a;
+      font-size: 11px;
+      color: #ee5555;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+
+    .form-section-title {
+      grid-column: 1 / -1;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--cheetah-orange);
+      margin-top: 20px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 6px;
+      text-align: left;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      color: var(--cheetah-gold);
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #111;
+      color: var(--cheetah-white);
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      cursor: pointer;
+    }
+
+    #registration-form button[type="submit"] {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--cheetah-orange) 0%, var(--cheetah-gold) 100%);
+      border: none;
+      border-radius: 8px;
+      font-weight: 800;
+      cursor: pointer;
+      color: var(--cheetah-black);
+      text-transform: uppercase;
+      font-size: 16px;
+      font-family: inherit;
+      letter-spacing: 0.1em;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255,122,0,0.3);
+    }
+
+    #registration-form button[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,122,0,0.5);
+      filter: brightness(1.1);
+    }
+
+    #registration-form button[type="submit"]:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo-wrap">
+      <div class="logo-circle">OC</div>
+      <div class="site-title">OC Cheetahs Baseball</div>
+    </div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#portal">Portal</a>
+    </nav>
+  </header>
+
+  <main id="home">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1><span>OC Cheetahs</span> Baseball</h1>
+        <p class="hero-tagline">
+          The fastest team in Orange County—built on hustle, heart, and cheetah‑level speed.
+        </p>
+        <div class="hero-badge">
+          <span>Little League • OC • Travel Ready</span>
+        </div>
+        
+        <div style="margin-top: 20px;">
+          <a href="#portal" class="cheetah-btn">Player Portal</a>
+        </div>
+      </div>
+
+      <!-- Pure CSS OC Logo replacement — No external images required -->
+      <div class="hero-logo-box">
+        <div class="hero-logo-circle">OC</div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About the OC Cheetahs</h2>
+      <p class="section-sub">A family‑built Little League team focused on fundamentals, and fun.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3>Our Identity</h3>
+          <p>The OC Cheetahs are all about speed—on the bases, in the field, and in our energy.</p>
+        </div>
+
+        <div class="card">
+          <h3>Coaching Philosophy</h3>
+          <p>Development first, wins second. Every player learns the game, builds confidence, and earns their role through effort and attitude.</p>
+        </div>
+
+        <div class="card">
+          <h3>Values</h3>
+          <p> Respect, teamwork, and resilience. We celebrate effort, support each other, and compete with class.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact & Tryouts</h2>
+      <p class="section-sub">Reach out about games, scrimmages, or joining the team.</p>
+
+      <div class="contact-grid">
+        <div class="contact-list">
+          <p><span>Head Coach/Founder:</span> Joseph Miller</p>
+          <p><span>Email:</span> occheetahs@gmail.com</p>
+          <p><span>Phone:</span> (949) 535‑6192</p>
+        </div>
+
+        <div>
+          <p style="font-size:13px; color:#cccccc; margin-bottom:8px;">
+            Interested in joining the OC Cheetahs?
+          </p>
+          <ul style="font-size:13px; color:#bbbbbb; padding-left:18px;">
+            <li>Include player name, age, and positions.</li>
+            <li>Mention any previous teams or leagues.</li>
+            <li>Share your availability.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTAL PAGE -->
+    <section id="portal">
+      <h2>Player Portal</h2>
+      <p class="section-sub">Access your roster, schedules, and player dashboard securely.</p>
+
+      <!-- Added fallback instructions in case JS is blocked locally -->
+      <div class="portal-box" id="portalBox" style="text-align: center;">
+        <p style="color: var(--cheetah-gold); font-size: 14px; font-weight: bold;">Loading Player Portal...</p>
+        <p style="color: #888888; font-size: 11px; margin-top: 8px; line-height: 1.4;">
+          Note: If this loading message persists, your browser is blocking local JavaScript execution.<br>
+          Please upload this file online to <strong>GitHub</strong> or <strong>Firebase Hosting</strong>, or run a local web server (like VS Code's "Live Server") to view.
+        </p>
+      </div>
+    </section>
+
+    <!-- PLAYER REGISTRATION FORM -->
+    <section id="registrationSection" style="display: none;">
+      <h2>Player Registration</h2>
+      <p class="section-sub">Complete your team registration and choose your preferences below.</p>
+
+      <form id="registration-form">
+        <div class="form-grid">
+          
+          <!-- SECTION 1: PLAYER PROFILE -->
+          <h3 class="form-section-title">Player Profile</h3>
+          
+          <div class="form-group">
+            <label for="playerName">Player Full Name</label>
+            <input type="text" id="playerName" placeholder="First and Last" required />
+          </div>
+
+          <div class="form-group">
+            <label for="playerAge">Player Age</label>
+            <input type="number" id="playerAge" placeholder="Age of Player" min="4" max="18" required />
+          </div>
+
+          <div class="form-group">
+            <label for="playerDob">Player Date of Birth</label>
+            <input type="date" id="playerDob" required />
+          </div>
+
+          <div class="form-group">
+            <label for="playerSchool">School / Current Grade</label>
+            <input type="text" id="playerSchool" placeholder="e.g. Oak Elementary - 5th Grade" required />
+          </div>
+
+          <!-- SECTION 2: PARENT/GUARDIAN CONTACT -->
+          <h3 class="form-section-title">Parent / Guardian Contact</h3>
+
+          <div class="form-group">
+            <label for="parentName">Parent Full Name</label>
+            <input type="text" id="parentName" placeholder="Primary Contact" required />
+          </div>
+
+          <div class="form-group">
+            <label for="parentAge">Parent Age</label>
+            <input type="number" id="parentAge" placeholder="Age of Parent" min="18" max="100" required />
+          </div>
+
+          <div class="form-group">
+            <label for="parentPhone">Parent Phone Number</label>
+            <input type="tel" id="parentPhone" placeholder="Primary Phone (555) 555-5555" required />
+          </div>
+
+          <div class="form-group">
+            <label for="urgentPhone">Contact Phone (For Game Days / Urgent Updates)</label>
+            <input type="tel" id="urgentPhone" placeholder="Backup Alert Phone (555) 555-5555" required />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="parentEmail">Parent Email Address</label>
+            <input type="email" id="parentEmail" placeholder="parent@example.com" required />
+          </div>
+
+          <!-- SECTION 3: UNIFORMS & GEAR SIZES -->
+          <h3 class="form-section-title">Uniform & Gear Sizes</h3>
+
+          <div class="form-group">
+            <label for="jerseySize">Jersey Size</label>
+            <select id="jerseySize" required>
+              <option value="" disabled selected>Select jersey size</option>
+              <option value="Youth Small">Youth Small</option>
+              <option value="Youth Medium">Youth Medium</option>
+              <option value="Youth Large">Youth Large</option>
+              <option value="Adult Small">Adult Small</option>
+              <option value="Adult Medium">Adult Medium</option>
+              <option value="Adult Large">Adult Large</option>
+              <option value="Adult X-Large">Adult X-Large</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="pantsSize">Pants Size</label>
+            <select id="pantsSize" required>
+              <option value="" disabled selected>Select pants size</option>
+              <option value="Youth Small">Youth Small</option>
+              <option value="Youth Medium">Youth Medium</option>
+              <option value="Youth Large">Youth Large</option>
+              <option value="Adult Small">Adult Small</option>
+              <option value="Adult Medium">Adult Medium</option>
+              <option value="Adult Large">Adult Large</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="beltSize">Sock & Belt Size</label>
+            <select id="beltSize" required>
+              <option value="" disabled selected>Select sock/belt size</option>
+              <option value="Youth One-Size">Youth (One-Size)</option>
+              <option value="Adult One-Size">Adult (One-Size)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="helmetSize">Hat / Helmet Size</label>
+            <select id="helmetSize" required>
+              <option value="" disabled selected>Select hat size</option>
+              <option value="Youth (Adjustable)">Youth (Adjustable)</option>
+              <option value="Youth Fitted (6 3/8 - 6 7/8)">Youth Fitted (6 3/8 - 6 7/8)</option>
+              <option value="Adult Small/Medium">Adult Small/Medium</option>
+              <option value="Adult Large/X-Large">Adult Large/X-Large</option>
+            </select>
+          </div>
+
+          <!-- SECTION 4: BASEBALL DETAILS & PREFERENCES -->
+          <h3 class="form-section-title">Baseball Details & Preferences</h3>
+
+          <div class="form-group">
+            <label for="jerseyNumber">Jersey Number Preference</label>
+            <input type="number" id="jerseyNumber" placeholder="First Choice (0-99)" min="0" max="99" required />
+          </div>
+
+          <div class="form-group">
+            <label for="playerPosition">Preferred Primary Position</label>
+            <select id="playerPosition" required>
+              <option value="" disabled selected>Select primary position</option>
+              <option value="Pitcher">Pitcher</option>
+              <option value="Catcher">Catcher</option>
+              <option value="First Base">First Base (1B)</option>
+              <option value="Second Base">Second Base (2B)</option>
+              <option value="Third Base">Third Base (3B)</option>
+              <option value="Shortstop">Shortstop (SS)</option>
+              <option value="Left Field">Left Field (LF)</option>
+              <option value="Center Field">Center Field (CF)</option>
+              <option value="Right Field">Right Field (RF)</option>
+              <option value="Utility">Utility</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="secondaryPosition">Preferred Secondary Position</label>
+            <select id="secondaryPosition" required>
+              <option value="" disabled selected>Select secondary position</option>
+              <option value="None">None (Only Primary)</option>
+              <option value="Pitcher">Pitcher</option>
+              <option value="Catcher">Catcher</option>
+              <option value="First Base">First Base (1B)</option>
+              <option value="Second Base">Second Base (2B)</option>
+              <option value="Third Base">Third Base (3B)</option>
+              <option value="Shortstop">Shortstop (SS)</option>
+              <option value="Left Field">Left Field (LF)</option>
+              <option value="Center Field">Center Field (CF)</option>
+              <option value="Right Field">Right Field (RF)</option>
+              <option value="Utility">Utility</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="batHand">Batting Stance</label>
+            <select id="batHand" required>
+              <option value="" disabled selected>Select batting preference</option>
+              <option value="Right-Handed">Right-Handed</option>
+              <option value="Left-Handed">Left-Handed</option>
+              <option value="Switch-Hitter">Switch-Hitter</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="throwHand">Throwing Arm</label>
+            <select id="throwHand" required>
+              <option value="" disabled selected>Select throwing arm</option>
+              <option value="Right-Handed">Right-Handed</option>
+              <option value="Left-Handed">Left-Handed</option>
+            </select>
+          </div>
+
+          <!-- SECTION 5: EMERGENCY & MEDICAL -->
+          <h3 class="form-section-title">Medical & Safety Information</h3>
+
+          <div class="form-group full-width">
+            <label for="medicalNotes">Allergies or Medical Concerns</label>
+            <textarea id="medicalNotes" placeholder="Please list any medical concerns, allergies, or type 'None'"></textarea>
+          </div>
+
+        </div>
+
+        <button type="submit">Submit Registration</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> OC Cheetahs Baseball • Built with speed and heart.
+  </footer>
+
+  <!-- FIREBASE SCRIPT -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAZ-VTNXCfO_Q2_nZH9xfDBV2kru-SGL0s",
+      authDomain: "occheetahs-d9f65.firebaseapp.com",
+      projectId: "occheetahs-d9f65",
+      storageBucket: "occheetahs-d9f65.firebasestorage.app",
+      messagingSenderId: "630995310063",
+      appId: "1:630995310063:web:75304dc8476cecc55f521a"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    const portalBox = document.getElementById("portalBox");
+    const registrationSection = document.getElementById("registrationSection");
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const displayName = user.displayName || user.email || "Cheetah";
+        registrationSection.style.display = "block";
+
+        if (user.email === "occheetahs@gmail.com") {
+          portalBox.innerHTML = `
+            <div class="admin-dashboard">
+              <div class="admin-header-row">
+                <span class="admin-title">Coach Dashboard</span>
+                <button id="signOutBtn" style="background: var(--cheetah-orange); border: none; border-radius: 6px; color: var(--cheetah-black); padding: 6px 12px; font-weight: bold; cursor: pointer; font-size: 11px; text-transform: uppercase;">Sign Out</button>
+              </div>
+              <p style="font-size: 13px; color: #bbbbbb; margin-bottom: 16px;">Welcome back, Coach! Loading active player registrations...</p>
+              <div id="regList" class="reg-list">
+                <p style="color: var(--cheetah-gold);">Fetching data...</p>
+              </div>
+            </div>
+          `;
+
+          const regList = document.getElementById("regList");
+
+          try {
+            const querySnapshot = await getDocs(collection(db, "registrations"));
+            if (querySnapshot.empty) {
+              regList.innerHTML = `<p style="color: #666; font-size: 13px;">No players registered yet.</p>`;
+            } else {
+              regList.innerHTML = "";
+              
+              querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const card = document.createElement("div");
+                card.className = "reg-card";
+                card.innerHTML = `
+                  <div class="reg-card-header">
+                    <h4>${data.playerName || "Unnamed Player"} (Age: ${data.playerAge || "N/A"})</h4>
+                    <span style="color: var(--cheetah-gold); font-size: 11px; font-weight: bold;">Jersey Pref: #${data.jerseyNumberPreference || "N/A"}</span>
+                  </div>
+                  <div class="reg-card-details">
+                    <div class="detail-group">
+                      <p class="detail-heading">Player Info</p>
+                      <p><strong>DOB:</strong> ${data.playerDateOfBirth || "N/A"}</p>
+                      <p><strong>School:</strong> ${data.playerSchoolAndGrade || "N/A"}</p>
+                    </div>
+                    <div class="detail-group">
+                      <p class="detail-heading">Uniform Sizes</p>
+                      <p><strong>Jersey:</strong> ${data.uniformJerseySize || "N/A"}</p>
+                      <p><strong>Pants:</strong> ${data.uniformPantsSize || "N/A"}</p>
+                      <p><strong>Sock/Belt:</strong> ${data.uniformBeltAndSockSize || "N/A"}</p>
+                    </div>
+                    <div class="detail-group">
+                      <p class="detail-heading">Positions</p>
+                      <p><strong>Primary:</strong> ${data.preferredPrimaryPosition || "N/A"}</p>
+                      <p><strong>Secondary:</strong> ${data.preferredSecondaryPosition || "N/A"}</p>
+                      <p><strong>Bat/Throw:</strong> ${data.battingStance || "R"}/${data.throwingArm || "R"}</p>
+                    </div>
+                    <div class="detail-group">
+                      <p class="detail-heading">Parent Contact</p>
+                      <p><strong>Name:</strong> ${data.parentName || "N/A"}</p>
+                      <p><strong>Phone:</strong> ${data.parentPhone || "N/A"}</p>
+                      <p><strong>Email:</strong> ${data.parentEmail || "N/A"}</p>
+                    </div>
+                  </div>
+                  <div class="reg-card-footer">
+                    <strong>Medical Notes/Allergies:</strong> ${data.medicalAllergies || "None"}
+                  </div>
+                `;
+                regList.appendChild(card);
+              });
+            }
+          } catch (error) {
+            console.error("Error loading registrations:", error);
+            regList.innerHTML = `<p style="color: #ff3333; font-size: 13px;">Error loading database: permission denied.</p>`;
+          }
+
+          document.getElementById("signOutBtn").addEventListener("click", () => {
+            signOut(auth).then(() => alert("Signed out successfully."));
+          });
+
+        } else {
+          portalBox.innerHTML = `
+            <div style="text-align: center;">
+              <h3 style="margin-bottom: 12px; color: var(--cheetah-gold);">Welcome, ${displayName}</h3>
+              <p style="margin-bottom: 24px; font-size: 13px; color: #bbbbbb;">You are successfully authenticated. Please scroll down to complete the player registration form.</p>
+              <button id="signOutBtn" style="background: none; border: none; color: var(--cheetah-orange); text-decoration: underline; font-size: 12px; display: block; margin: 0 auto; cursor: pointer;">Sign Out</button>
+            </div>
+          `;
+
+          document.getElementById("signOutBtn").addEventListener("click", () => {
+            signOut(auth).then(() => alert("Signed out successfully."));
+          });
+        }
+
+      } else {
+        registrationSection.style.display = "none";
+        portalBox.innerHTML = `
+          <div style="text-align: center;">
+            <p style="margin-bottom: 18px; font-size: 13px; color: #bbbbbb;">To protect security, player registration is locked. Please sign in with your Google account to register.</p>
+            <button id="googleAuthBtn" class="google-btn">
+              <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+              </svg>
+              Sign In with Google
+            </button>
+          </div>
+        `;
+
+        document.getElementById("googleAuthBtn").addEventListener("click", () => {
+          signInWithPopup(auth, provider)
+            .then((result) => {
+              const displayName = result.user.displayName || result.user.email || "Cheetah";
+              alert("Welcome, " + displayName);
+            })
+            .catch((error) => {
+              console.error("Google Authentication error:", error);
+              alert("Failed to authenticate: " + error.message);
+            });
+        });
+      }
+    });
+
+    const form = document.getElementById("registration-form");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const name = document.getElementById("playerName").value.trim();
+      const age = parseInt(document.getElementById("playerAge").value);
+      const dob = document.getElementById("playerDob").value;
+      const school = document.getElementById("playerSchool").value.trim();
+
+      const parentName = document.getElementById("parentName").value.trim();
+      const parentAge = parseInt(document.getElementById("parentAge").value);
+      const parentPhone = document.getElementById("parentPhone").value.trim();
+      const urgentPhone = document.getElementById("urgentPhone").value.trim();
+      const parentEmail = document.getElementById("parentEmail").value.trim();
+
+      const jerseySize = document.getElementById("jerseySize").value;
+      const pantsSize = document.getElementById("pantsSize").value;
+      const beltSize = document.getElementById("beltSize").value;
+      const helmetSize = document.getElementById("helmetSize").value;
+
+      const jersey = parseInt(document.getElementById("jerseyNumber").value);
+      const position = document.getElementById("playerPosition").value;
+      const secondaryPosition = document.getElementById("secondaryPosition").value;
+      const batHand = document.getElementById("batHand").value;
+      const throwHand = document.getElementById("throwHand").value;
+      const medicalNotes = document.getElementById("medicalNotes").value.trim() || "None";
+
+      addDoc(collection(db, "registrations"), {
+        playerName: name,
+        playerAge: age,
+        playerDateOfBirth: dob,
+        playerSchoolAndGrade: school,
+        parentName: parentName,
+        parentAge: parentAge,
+        parentPhone: parentPhone,
+        urgentAlertPhone: urgentPhone,
+        parentEmail: parentEmail,
+        uniformJerseySize: jerseySize,
+        uniformPantsSize: pantsSize,
+        uniformBeltAndSockSize: beltSize,
+        uniformHatSize: helmetSize,
+        jerseyNumberPreference: jersey,
+        preferredPrimaryPosition: position,
+        preferredSecondaryPosition: secondaryPosition,
+        battingStance: batHand,
+        throwingArm: throwHand,
+        medicalAllergies: medicalNotes,
+        submittedAt: new Date().toISOString()
+      })
+      .then(() => {
+        alert("Registration submitted successfully! Welcome to the team roster.");
+        form.reset();
+        window.location.href = "#home";
+      })
+      .catch((error) => {
+        console.error("Firestore write error: ", error);
+        alert("Database Error: " + error.message);
+      });
+    });
+  </script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
